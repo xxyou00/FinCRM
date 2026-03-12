@@ -40,7 +40,18 @@ export async function verifyToken(token: string): Promise<UserPayload | null> {
   }
 }
 
-export async function getSession(): Promise<UserPayload | null> {
+export async function getSession(request?: Request): Promise<UserPayload | null> {
+  // Try to get token from Authorization header first
+  if (request) {
+    const authHeader = request.headers.get('authorization')
+    if (authHeader?.startsWith('Bearer ')) {
+      const token = authHeader.substring(7)
+      const payload = await verifyToken(token)
+      if (payload) return payload
+    }
+  }
+  
+  // Fall back to cookie
   const cookieStore = await cookies()
   const token = cookieStore.get('token')?.value
   
