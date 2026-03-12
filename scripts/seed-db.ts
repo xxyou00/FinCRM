@@ -22,11 +22,11 @@ async function seedDatabase() {
     
     await db.collection('users').insertMany([
       {
-        email: 'admin@fincrm.com',
+        email: 'xingxiang@itiger.com',
         password: hashedPassword,
-        firstName: 'Admin',
-        lastName: 'User',
-        company: 'FinCRM Inc.',
+        firstName: 'Xing',
+        lastName: 'Xiang',
+        company: 'iTiger',
         role: 'Admin',
         department: 'Management',
         status: 'Active',
@@ -112,7 +112,7 @@ async function seedDatabase() {
 
     console.log('Database seeded successfully!')
     console.log('\nDemo credentials:')
-    console.log('Email: admin@fincrm.com')
+    console.log('Email: xingxiang@itiger.com')
     console.log('Password: admin123')
   } catch (error) {
     console.error('Error seeding database:', error)

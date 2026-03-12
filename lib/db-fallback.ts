@@ -48,11 +48,11 @@ class InMemoryDB {
     const adminId = String(this.userIdCounter++)
     this.users.set(adminId, {
       _id: adminId,
-      email: 'admin@fincrm.com',
+      email: 'xingxiang@itiger.com',
       password: '$2a$10$XOQcw4TIIFrRpbAShYAsN.69hqtDyvMK2uLaDnv7BavL/Xmcjke66', // admin123
-      firstName: 'Admin',
-      lastName: 'User',
-      company: 'FinCRM Inc.',
+      firstName: 'Xing',
+      lastName: 'Xiang',
+      company: 'iTiger',
       role: 'Admin',
       department: 'Management',
       status: 'Active',
