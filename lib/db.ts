@@ -9,7 +9,13 @@ if (!USE_MONGODB) {
 }
 
 const uri = process.env.MONGODB_URI || ''
-const options = {}
+const options = {
+  maxPoolSize: 10,
+  minPoolSize: 1,
+  maxIdleTimeMS: 30000,
+  serverSelectionTimeoutMS: 10000,
+  socketTimeoutMS: 45000,
+}
 
 let client: MongoClient | undefined
 let clientPromise: Promise<MongoClient> | undefined
@@ -89,8 +95,15 @@ export async function getDatabase(): Promise<any> {
     throw new Error('MongoDB client not initialized')
   }
 
-  const client = await clientPromise
-  return client.db('fincrm')
+  try {
+    const client = await clientPromise
+    const db = client.db('fincrm')
+    console.log('✅ Connected to MongoDB Atlas')
+    return db
+  } catch (error) {
+    console.error('❌ MongoDB connection error:', error)
+    throw error
+  }
 }
 
 export default clientPromise || Promise.resolve(null as any)
