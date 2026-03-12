@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
     const leads = await (leadsQuery.sort ? leadsQuery.sort({ createdAt: -1 }).toArray() : leadsQuery.toArray())
 
     return NextResponse.json({
-      leads: leads.map(lead => ({
+      leads: leads.map((lead: any) => ({
         id: lead._id.toString(),
         name: lead.name,
         contact: lead.contact,

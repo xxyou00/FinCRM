@@ -11,8 +11,8 @@ if (!USE_MONGODB) {
 const uri = process.env.MONGODB_URI || ''
 const options = {}
 
-let client: MongoClient
-let clientPromise: Promise<MongoClient>
+let client: MongoClient | undefined
+let clientPromise: Promise<MongoClient> | undefined
 
 declare global {
   var _mongoClientPromise: Promise<MongoClient> | undefined
@@ -85,8 +85,12 @@ export async function getDatabase(): Promise<any> {
     }
   }
 
+  if (!clientPromise) {
+    throw new Error('MongoDB client not initialized')
+  }
+
   const client = await clientPromise
   return client.db('fincrm')
 }
 
-export default USE_MONGODB ? clientPromise : Promise.resolve(null as any)
+export default clientPromise || Promise.resolve(null as any)

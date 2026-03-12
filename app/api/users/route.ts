@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
     const users = await (usersQuery.sort ? usersQuery.sort({ createdAt: -1 }).toArray() : usersQuery.toArray())
 
     return NextResponse.json({
-      users: users.map(user => ({
+      users: users.map((user: any) => ({
         id: user._id.toString(),
         name: `${user.firstName} ${user.lastName}`,
         email: user.email,

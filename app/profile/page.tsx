@@ -19,9 +19,9 @@ export default function ProfilePage() {
     firstName: user?.firstName || "",
     lastName: user?.lastName || "",
     email: user?.email || "",
-    phone: user?.phone || "",
-    address: user?.address || "",
-    bio: user?.bio || "",
+    phone: (user as any)?.phone || "",
+    address: (user as any)?.address || "",
+    bio: (user as any)?.bio || "",
   })
 
   const handleSave = () => {
@@ -35,9 +35,9 @@ export default function ProfilePage() {
       firstName: user?.firstName || "",
       lastName: user?.lastName || "",
       email: user?.email || "",
-      phone: user?.phone || "",
-      address: user?.address || "",
-      bio: user?.bio || "",
+      phone: (user as any)?.phone || "",
+      address: (user as any)?.address || "",
+      bio: (user as any)?.bio || "",
     })
     setIsEditing(false)
   }
@@ -217,7 +217,7 @@ export default function ProfilePage() {
               <Calendar className="h-4 w-4 text-muted-foreground" />
               <div>
                 <p className="text-sm font-medium">{t("profile.joinDate")}</p>
-                <p className="text-sm text-muted-foreground">{user?.joinDate || "2024-01-01"}</p>
+                <p className="text-sm text-muted-foreground">{(user as any)?.joinDate || "2024-01-01"}</p>
               </div>
             </div>
             <div className="flex items-center space-x-2">
