@@ -6,7 +6,8 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "seed": "tsx scripts/seed-db.ts"
   },
   "dependencies": {
     "@ai-sdk/openai": "latest",
@@ -40,13 +41,16 @@
     "@radix-ui/react-tooltip": "1.1.6",
     "ai": "latest",
     "autoprefixer": "^10.4.20",
+    "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "1.0.4",
     "date-fns": "4.1.0",
     "embla-carousel-react": "8.5.1",
     "input-otp": "1.4.1",
+    "jose": "^5.10.0",
     "lucide-react": "^0.454.0",
+    "mongodb": "^6.21.0",
     "next": "15.2.4",
     "next-themes": "latest",
     "react": "^19",
@@ -63,11 +67,13 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "postcss": "^8.5",
     "tailwindcss": "^3.4.17",
+    "tsx": "^4.21.0",
     "typescript": "^5"
   }
 }

@@ -36,19 +36,6 @@ interface RegisterData {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
-// Mock user data for demo
-const mockUsers = [
-  {
-    id: "1",
-    email: "admin@fincrm.com",
-    password: "admin123",
-    firstName: "Admin",
-    lastName: "User",
-    company: "FinCRM Inc.",
-    role: "Administrator",
-  },
-]
-
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [isLoading, setIsLoading] = useState(false)
@@ -68,28 +55,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (email: string, password: string): Promise<boolean> => {
     setIsLoading(true)
 
-    // Simulate API call delay
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      })
 
-    const foundUser = mockUsers.find((u) => u.email === email && u.password === password)
-
-    if (foundUser) {
-      const userData = {
-        id: foundUser.id,
-        email: foundUser.email,
-        firstName: foundUser.firstName,
-        lastName: foundUser.lastName,
-        company: foundUser.company,
-        role: foundUser.role,
+      if (response.ok) {
+        const data = await response.json()
+        setUser(data.user)
+        localStorage.setItem("fincrm_user", JSON.stringify(data.user))
+        setIsLoading(false)
+        return true
       }
-      setUser(userData)
-      localStorage.setItem("fincrm_user", JSON.stringify(userData))
-      setIsLoading(false)
-      return true
-    }
 
-    setIsLoading(false)
-    return false
+      setIsLoading(false)
+      return false
+    } catch (error) {
+      console.error('Login error:', error)
+      setIsLoading(false)
+      return false
+    }
   }
 
   const register = async (userData: {
@@ -101,39 +88,32 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }): Promise<boolean> => {
     setIsLoading(true)
 
-    // Simulate API call delay
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData),
+      })
 
-    // Check if user already exists
-    const existingUser = mockUsers.find((u) => u.email === userData.email)
-    if (existingUser) {
+      if (response.ok) {
+        const data = await response.json()
+        setUser(data.user)
+        localStorage.setItem("fincrm_user", JSON.stringify(data.user))
+        setIsLoading(false)
+        return true
+      }
+
+      setIsLoading(false)
+      return false
+    } catch (error) {
+      console.error('Registration error:', error)
       setIsLoading(false)
       return false
     }
-
-    // Create new user
-    const newUser = {
-      id: Date.now().toString(),
-      email: userData.email,
-      firstName: userData.firstName,
-      lastName: userData.lastName,
-      company: userData.company,
-      role: "User",
-    }
-
-    // Add to mock users (in real app, this would be an API call)
-    mockUsers.push({
-      ...newUser,
-      password: userData.password,
-    })
-
-    setUser(newUser)
-    localStorage.setItem("fincrm_user", JSON.stringify(newUser))
-    setIsLoading(false)
-    return true
   }
 
   const logout = () => {
+    fetch('/api/auth/logout', { method: 'POST' }).catch(console.error)
     setUser(null)
     localStorage.removeItem("fincrm_user")
   }

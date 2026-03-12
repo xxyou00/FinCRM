@@ -6,26 +6,15 @@
 
 ## 🚀 快速开始
 
-### 环境要求
+### 本地运行
 
-- Node.js 18.0 或更高版本
-- npm 或 yarn 包管理器
+```bash
+# 安装依赖
+npm install --legacy-peer-deps
 
-### 安装依赖
-
-\`\`\`bash
-npm install
-# 或
-yarn install
-\`\`\`
-
-### 启动开发服务器
-
-\`\`\`bash
+# 启动开发服务器
 npm run dev
-# 或
-yarn dev
-\`\`\`
+```
 
 访问 [http://localhost:3000](http://localhost:3000) 查看应用。
 
@@ -33,6 +22,12 @@ yarn dev
 
 - 邮箱: `admin@fincrm.com`
 - 密码: `admin123`
+
+> 💡 **提示**: 当前使用内存数据库，数据在服务器重启后会重置。配置 MongoDB 后可实现数据持久化。
+
+### 生产部署
+
+查看 [部署指南](./DEPLOYMENT.md) 了解如何部署到 Netlify 并配置 MongoDB。
 
 ## 📋 功能特性
 
@@ -74,13 +69,15 @@ yarn dev
 
 ## 🛠️ 技术栈
 
-- **前端框架**: Next.js 14 (App Router)
+- **前端框架**: Next.js 15 (App Router)
 - **开发语言**: TypeScript
 - **UI组件**: shadcn/ui + Radix UI
 - **样式框架**: Tailwind CSS
 - **图表库**: Recharts
-- **拖拽功能**: react-dnd
-- **状态管理**: React Context + Hooks
+- **后端**: Next.js API Routes (Serverless)
+- **数据库**: MongoDB Atlas / 内存数据库
+- **认证**: JWT + bcrypt
+- **部署**: Netlify / Vercel
 
 ## 📁 项目结构
 
@@ -118,7 +115,7 @@ yarn dev
 
 ## 🔧 开发命令
 
-\`\`\`bash
+```bash
 # 开发模式
 npm run dev
 
@@ -131,27 +128,37 @@ npm run start
 # 代码检查
 npm run lint
 
-# 类型检查
-npm run type-check
-\`\`\`
+# 初始化数据库（需要配置 MongoDB）
+npm run seed
+```
 
 ## 📦 部署
 
-### Vercel部署 (推荐)
+### Netlify 部署（推荐）
 
-1. 将代码推送到GitHub
-2. 在Vercel中导入项目
-3. 自动部署完成
+1. 将代码推送到 GitHub
+2. 在 [Netlify](https://app.netlify.com/) 中导入项目
+3. 配置环境变量（MongoDB URI、JWT Secret）
+4. 自动部署完成
 
-### Docker部署
+详细步骤请查看 [部署指南](./DEPLOYMENT.md)
 
-\`\`\`bash
+### Vercel 部署
+
+1. 将代码推送到 GitHub
+2. 在 Vercel 中导入项目
+3. 配置环境变量
+4. 自动部署完成
+
+### Docker 部署
+
+```bash
 # 构建镜像
 docker build -t financial-crm .
 
 # 运行容器
-docker run -p 3000:3000 financial-crm
-\`\`\`
+docker run -p 3000:3000 -e MONGODB_URI=your_uri -e JWT_SECRET=your_secret financial-crm
+```
 
 ## 🤝 贡献指南
 
