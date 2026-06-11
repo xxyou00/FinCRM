@@ -142,3 +142,10 @@ vite.config.ts.timestamp-*
 
 # Local Netlify folder
 .netlify
+
+# Python cache (baozugong reference scripts)
+__pycache__/
+*.pyc
+
+# Scratch / token files
+.scratch_tok

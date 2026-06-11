@@ -23,6 +23,7 @@ import {
   ChevronRight,
   Building2,
   Bot,
+  PiggyBank,
 } from "lucide-react"
 
 const menuItems = [
@@ -80,6 +81,11 @@ const menuItems = [
     title: "nav.reports",
     href: "/reports",
     icon: TrendingUp,
+  },
+  {
+    title: "nav.baozugong",
+    href: "/baozugong",
+    icon: PiggyBank,
   },
   {
     title: "nav.settings",

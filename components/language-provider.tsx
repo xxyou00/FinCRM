@@ -26,6 +26,7 @@ const translations = {
     "nav.reports": "Reports & Analytics",
     "nav.monitoring": "System Monitoring",
     "nav.ai": "AI Assistant",
+    "nav.baozugong": "Landlord · Options",
     "nav.settings": "Settings",
 
     // Auth
@@ -332,6 +333,7 @@ const translations = {
     "nav.reports": "报表分析",
     "nav.monitoring": "数据监控",
     "nav.ai": "AI助手",
+    "nav.baozugong": "包租公·期权",
     "nav.settings": "系统配置",
 
     // Auth
